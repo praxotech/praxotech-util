@@ -40,8 +40,8 @@ public class DualObject<F, S> {
     Object of = DualObject.class.cast(obj).first;
     Object os = DualObject.class.cast(obj).second;
     
-    return ((first == null && of == null) || first.equals(of)) &&
-           ((second == null && os == null) || second.equals(os));
+    return (first == null? of == null : first.equals(of)) &&
+           (second == null? os == null : second.equals(os));
   }
 
   /* (non-Javadoc)
