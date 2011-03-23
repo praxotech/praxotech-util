@@ -9,7 +9,7 @@ public abstract class SetOperator<T> extends Operator<Set<T>, Set<T>> {
 
   @Override
   public void validate() {
-    if (getOperandList().isEmpty()) throw new RuntimeException("At least one operand is required for the operator.");
+    if (getOperandList().isEmpty()) throw new OperandValidationException("At least one operand is required for the operator.");
   }
 
 }

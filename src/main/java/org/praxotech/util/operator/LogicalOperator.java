@@ -14,7 +14,7 @@ public abstract class LogicalOperator extends Operator<Boolean, Boolean> {
    */
   @Override
   public void validate() {
-    if (getOperandList().isEmpty()) throw new RuntimeException("Missing operand for operator " + getOperatorString() + ".");
+    if (getOperandList().isEmpty()) throw new OperandValidationException("Missing operand for operator " + getOperatorString() + ".");
   }
   
 }

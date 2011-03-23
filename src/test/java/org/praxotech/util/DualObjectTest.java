@@ -24,10 +24,12 @@ public class DualObjectTest {
     DualObject<String, Long> o4 = new DualObject<String, Long>("a", Long.valueOf(1));
     DualObject<String, Integer> o5 = new DualObject<String, Integer>("a", Integer.valueOf(1));
     
-    assertEquals(o1, o5);
-    assertFalse(o2.equals(o1));
-    assertFalse(o3.equals(o1));
-    assertFalse(o1.equals(o4));
+    assertEquals(o1, o5);           // equality of two instance of same value
+    assertFalse(o2.equals(o1));     // inequality when first of first is null (NPE should not occur)
+    assertFalse(o3.equals(o1));     // inequality when second of first is null (NPE should not occur)
+    assertFalse(o1.equals(o2));     // inequality when first of second is null (NPE should not occur)
+    assertFalse(o1.equals(o3));     // inequality when second of second is null (NPE should not occur)
+    assertFalse(o1.equals(o4));     // inequality of different data types
   }
 
 }

@@ -16,7 +16,7 @@ public class LogicalNot extends LogicalOperator {
   public void validate() {
     super.validate();
     
-    if (getOperandList().size() > 1) throw new RuntimeException("Too many operands for operator " + getOperatorString() + ".");
+    if (getOperandList().size() > 1) throw new OperandValidationException("Too many operands for operator " + getOperatorString() + ".");
   }
 
   /* (non-Javadoc)
