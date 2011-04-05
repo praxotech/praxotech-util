@@ -7,7 +7,7 @@ package org.praxotech.util;
  * @author fyang
  *
  */
-public class Range<T extends Comparable<? super T>> extends Pair<T> {
+public class Range<T extends Comparable<? super T>> extends OrderedPair<T> {
   private final boolean lowerOpen;
   private final boolean upperOpen;
   private final boolean blank;

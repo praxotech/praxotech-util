@@ -7,9 +7,9 @@ package org.praxotech.util;
  * @author fyang
  *
  */
-public class Pair<T> extends DualObject<T, T> {
+public class OrderedPair<T> extends OrderedDualObject<T, T> {
 
-  public Pair(T first, T second) {
+  public OrderedPair(T first, T second) {
     super(first, second);
   }
 

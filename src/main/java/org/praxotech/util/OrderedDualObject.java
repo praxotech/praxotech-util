@@ -7,11 +7,11 @@ package org.praxotech.util;
  * @author fyang
  *
  */
-public class DualObject<F, S> {
+public class OrderedDualObject<F, S> {
   private final F first;
   private final S second;
   
-  public DualObject(F first, S second) {
+  public OrderedDualObject(F first, S second) {
     this.first = first;
     this.second = second;
   }
@@ -37,8 +37,8 @@ public class DualObject<F, S> {
   public boolean equals(Object obj) {
     if (!this.getClass().isAssignableFrom(obj.getClass())) return false;
 
-    Object of = DualObject.class.cast(obj).first;
-    Object os = DualObject.class.cast(obj).second;
+    Object of = OrderedDualObject.class.cast(obj).first;
+    Object os = OrderedDualObject.class.cast(obj).second;
     
     return (first == null? of == null : first.equals(of)) &&
            (second == null? os == null : second.equals(os));

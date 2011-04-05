@@ -14,19 +14,29 @@ package org.praxotech.util.job;
  * the runtime task may never be triggered due to the reason that the
  * dependency task may complete before the runtime task is created.  In
  * such situation, the notification of completion of dependency task will
- * never reach the runtime task.  With a guard task set up as above, it
- * will ensure the notification will be delivered to runtime tasks
- * depending on it.
+ * never reach the runtime task.  A guard task set up as above ensures
+ * the notification be delivered to runtime tasks depending on it.
  * 
  */
 public class PassThruTask extends Task {
+  /**
+   * This variable defines the lag time between start and end of the task.
+   * The unit of measure is millisecond. The default value is 0, i.e.,
+   * no lag time.
+   */
+  private int lagTime;
 
   /**
    * @param ctx
    */
   public PassThruTask(JobContext ctx) {
     super(ctx);
-    // TODO Auto-generated constructor stub
+    lagTime = 0;
+  }
+  
+  public PassThruTask(JobContext ctx, int lagTime) {
+    super(ctx);
+    this.lagTime = lagTime;
   }
 
   /* (non-Javadoc)
@@ -34,6 +44,15 @@ public class PassThruTask extends Task {
    */
   @Override
   protected boolean executeTask() {
+    if (lagTime > 0) {
+      try {
+        wait(lagTime);
+      }
+      catch (InterruptedException e) {
+        // No handling necessary
+      }
+    }
+    
     return true;
   }
 

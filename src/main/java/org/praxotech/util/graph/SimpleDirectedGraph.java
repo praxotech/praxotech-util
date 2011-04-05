@@ -9,7 +9,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.praxotech.util.Pair;
+import org.praxotech.util.OrderedPair;
+
+import com.google.common.collect.HashMultiset;
 
 /**
  * @author fyang
@@ -17,7 +19,7 @@ import org.praxotech.util.Pair;
  */
 public class SimpleDirectedGraph<T> {
   private Set<T> nodes = Collections.synchronizedSet(new HashSet<T>());
-  private Set<Pair<T>> edges = Collections.synchronizedSet(new HashSet<Pair<T>>());
+  private Collection<OrderedPair<T>> edges = Collections.synchronizedCollection(HashMultiset.<OrderedPair<T>>create());
   
   public boolean addNode(T node) {
     return nodes.add(node);
@@ -32,9 +34,9 @@ public class SimpleDirectedGraph<T> {
     
     // remove edges connected to removed node
     if (nodes.remove(node)) {
-      Iterator<Pair<T>> iter = edges.iterator();
+      Iterator<OrderedPair<T>> iter = edges.iterator(); // iterator is involved for removing elements from it
       while (iter.hasNext()) {
-        Pair<T> e = iter.next();
+        OrderedPair<T> e = iter.next();
         if (e.getFirst().equals(node) || e.getSecond().equals(node)) iter.remove();
       }
       return true;
@@ -55,11 +57,11 @@ public class SimpleDirectedGraph<T> {
   public boolean addEdge(T from, T to) {
     if (!(nodes.contains(from) && nodes.contains(to))) return false;
     
-    return edges.add(new Pair<T>(from, to));
+    return edges.add(new OrderedPair<T>(from, to));
   }
   
   public boolean removeEdge(T from, T to) {
-    return edges.remove(new Pair<T>(from, to));
+    return edges.remove(new OrderedPair<T>(from, to));
   }
   
   /**
@@ -122,7 +124,7 @@ public class SimpleDirectedGraph<T> {
     if (!nodes.contains(node)) return Collections.<T>emptySet();
     
     Set<T> from = new HashSet<T>();
-    for (Pair<T> e : edges) {
+    for (OrderedPair<T> e : edges) {
       if (e.getSecond().equals(node) && nodes.contains(e.getFirst())) {
         from.add(e.getFirst());
       }
@@ -134,7 +136,7 @@ public class SimpleDirectedGraph<T> {
     if (!nodes.contains(node)) return Collections.<T>emptySet();
     
     Set<T> to = new HashSet<T>();
-    for (Pair<T> e : edges) {
+    for (OrderedPair<T> e : edges) {
       if (e.getFirst().equals(node) && nodes.contains(e.getSecond())) {
         to.add(e.getSecond());
       }
